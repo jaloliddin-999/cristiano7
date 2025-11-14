@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flashcards — Qiziqarli Faktlar</title>
+  <style>
+    /* Oddiy, o'qish uchun qulay shrift va umumiy sozlamalar */
+    :root{
+      --bg: #f3f7fb;
+      --card-bg: #ffffff;
+      --accent: #3b82f6;
+      --accent-dark: #2563eb;
+      --text: #0f172a;
+      --muted: #64748b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #eaf2ff 60%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:30px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:980px;
+      text-align:center;
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-size:28px;
+    }
+    p.lead{
+      margin:0 0 22px;
+      color:var(--muted);
+    }
+
+    /* Grid of cards */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:20px;
+      align-items:stretch;
+    }
+
+    /* Card 3D scene */
+    .card{
+      perspective:1000px;
+      height:260px;
+    }
+
+    /* inner flipping element */
+    .card-inner{
+      position:relative;
+      width:100%;
+      height:100%;
+      transition: transform 0.7s cubic-bezier(.2,.8,.2,1);
+      transform-style:preserve-3d;
+      cursor:pointer;
+      border-radius:14px;
+      box-shadow: 0 8px 20px rgba(12,23,60,0.08);
+    }
+
+    /* Use checkbox hack: when hidden checkbox is checked, flip */
+    .card input{
+      display:none;
+    }
+    .card input:checked + .card-inner,
+    .card-inner:hover,
+    .card:focus-within .card-inner{
+      transform: rotateY(180deg);
+    }
+
+    .card-face{
+      position:absolute;
+      inset:0;
+      backface-visibility:hidden;
+      border-radius:14px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      color:var(--text);
+    }
+
+    .front{
+      background: linear-gradient(135deg, #ffffff, #f6fbff);
+      border: 1px solid rgba(15,23,42,0.04);
+    }
+
+    .back{
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color:white;
+      transform: rotateY(180deg);
+    }
+
+    .fact{
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:8px;
+    }
+    .category{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .answer{
+      font-size:16px;
+      line-height:1.25;
+      text-align:center;
+      max-width:90%;
+    }
+
+    /* small footer on card */
+    .card-foot{
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      font-size:12px;
+      color:rgba(15,23,42,0.6);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      pointer-events:none;
+    }
+
+    .btn{
+      pointer-events:auto;
+      border:none;
+      background:rgba(255,255,255,0.12);
+      color:inherit;
+      padding:6px 10px;
+      border-radius:8px;
+      font-weight:600;
+      cursor:pointer;
+      text-decoration:none;
+      font-size:13px;
+    }
+
+    /* responsive tweaks */
+    @media (max-width:560px){
+      .card{ height:220px; }
+      h1{ font-size:22px; }
+    }
+
+    /* small tip box */
+    .tip{
+      margin-top:18px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* focus outline for accessibility */
+    .card input:focus + .card-inner,
+    .card-inner:focus{
+      outline:3px solid rgba(59,130,246,0.18);
+      outline-offset:6px;
+      border-radius:16px;
+    }
+  </style>
+
+</head>
+<body>  
+  <div class="wrap">
+    <h1>Flashcards — Qiziqarli Faktlar</h1>
+    <p class="lead">Kartalarni bosing yoki ustiga kursorni olib boring, orqaga o'giriladi.</p>
+
+    <div class="cards" aria-label="Flashcards with interesting facts">
+
+      <!-- BIOLOGIYA -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Biologiya">
+          <div class="card-face front">
+            <div class="category">Biologiya</div>
+            <div class="fact">Inson tanasidagi eng katta organ qaysi?</div>
+            <div class="card-foot">
+              <span>Faktlar</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>Teri</strong><br>
+              Teri inson tanasining eng katta organi bo'lib, u tana yuzasini qoplaydi va himoya qiladi.
+            </div>
+          </div>
+        </div>
+      </label>
+      <!-- INGILIZ TILI -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Ingliz Tili">
+          <div class="card-face front">
+            <div class="category">Ingliz tili</div>
+            <div class="fact">Oddiy o'tgan zamon (Past Simple) qanday hosil qilinadi?</div>
+            <div class="card-foot">
+              <span>Grammatika</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>Infinitive + -ed</strong><br>
+              Masalan: work → worked, play → played. (Irregular verbs alohida qoida bilan o'zgartiriladi.)
+            </div>
+          </div>
+        </div>
+      </label>
+      <!-- MATEMATIKA -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Matematika">
+          <div class="card-face front">
+            <div class="category">Matematika</div>
+            <div class="fact">Pifagor teoremasi qanday ifodalanadi (to'g'ri burchakli uchburchak)?</div>
+            <div class="card-foot">
+              <span>Geometriya</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>a² + b² = c²</strong><br>
+              To'g'ri burchakli uchburchakda katetlar kvadratlari yig'indisi gipotenuzaning kvadratiga teng.
+            </div>
+          </div>
+        </div>
+      </label>
+      <!-- GEOGRAFIYA -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Geografiya">
+          <div class="card-face front">
+            <div class="category">Geografiya</div>
+            <div class="fact">Dunyoning eng katta okeani qaysi?</div>
+            <div class="card-foot">
+              <span>Faktlar</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>Tinch okeani</strong><br>
+              Tinch okeani dunyoning eng katta okeani bo'lib, uning maydoni taxminan 63 million kvadrat milni tashkil etadi.
+            </div>
+          </div>
+        </div>
+      </label>  
+        <!-- KIMYO QO'SHIMCHA 1 -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Kimyo 2">
+          <div class="card-face front">
+            <div class="category">Kimyo</div>
+            <div class="fact">pH nima va u nima uchun ishlatiladi?</div>
+            <div class="card-foot">
+              <span>Asosiy tushunchalar</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>pH — kislotalik/ishqorlik darajasi</strong><br>
+              pH 0–14 oralig'ida o'lchanadi: pH&lt;7 — kislota, pH=7 — neytral, pH&gt;7 — ishqor (asos). Suvning kimyoviy xususiyatlarini baholashda ishlatiladi.
+            </div>
+          </div>
+        </div>
+      </label>
+      <!-- RUS TILI QO'SHIMCHA 2 -->
+      <label class="card" tabindex="0">
+        <input type="checkbox" aria-hidden="true" />
+        <div class="card-inner" role="region" aria-label="Flashcard Rus 3">
+          <div class="card-face front">
+            <div class="category">Rus tili</div>
+            <div class="fact">Rus tilida sondan 1ni qanday aytish va uning jinsga ta'siri qanday?</div>
+            <div class="card-foot">
+              <span>Grammatika</span>
+              <span style="opacity:0.6;font-size:12px">Bosish — javobni ko`rish</span>
+            </div>
+          </div>
+          <div class="card-face back">
+            <div class="answer">
+              <strong>Один (Odin)</strong><br>
+              "Odin" erkak jinsiga mos; ayol jinsida "одна" (odna), o'rta jinsda "одно" (odno). Rus tilida sondagi so'zlar jinsga ta'sir qiladi.
+            </div>
+          </div>
+        </div>
+      </label>
+    </div>
